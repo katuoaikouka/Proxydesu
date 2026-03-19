@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        :root {
+            --bg: #1a1a1a;
+            --card-bg: #333;
+            --accent: #0078d4;
+            --text: white;
+        }
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            height: 100vh; 
+            margin: 0; 
+            font-family: 'Segoe UI', sans-serif; 
+        }
+        h1 { font-size: 3.5rem; margin-bottom: 5px; color: var(--accent); letter-spacing: -1px; }
+        p { opacity: 0.6; font-size: 1.1rem; margin-bottom: 30px; }
+        
+        .shortcuts { 
+            display: flex; 
+            gap: 25px; 
+            flex-wrap: wrap; 
+            justify-content: center;
+        }
+        
+        .card { 
+            background: var(--card-bg); 
+            padding: 25px 15px; 
+            border-radius: 16px; 
+            cursor: pointer; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            width: 120px; 
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        
+        .card:hover { 
+            background: #444; 
+            transform: translateY(-8px); 
+            border-color: var(--accent);
+            box-shadow: 0 8px 25px rgba(0, 120, 212, 0.3);
+        }
+
+        .card img {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+        }
+
+        .card-title {
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>SenninProxy</h1>
+    <p>お気に入りからクイックスタート</p>
+    
+    <div class="shortcuts">
+        <div class="card" onclick="launchProxy('google.com')">
+            <img src="https://www.google.com/favicon.ico" alt="Google">
+            <span class="card-title">Google</span>
+        </div>
+        
+        <div class="card" onclick="launchProxy('youtube.com')">
+            <img src="https://www.youtube.com/favicon.ico" alt="YouTube">
+            <span class="card-title">YouTube</span>
+        </div>
+        
+        <div class="card" onclick="launchProxy('discord.com')">
+            <img src="https://static.canva.com/static/images/favicon-1.ico" alt="Discord" onerror="this.src='https://www.google.com/favicon.ico'">
+            <span class="card-title">Discord</span>
+        </div>
+
+        <div class="card" onclick="launchProxy('x.com')">
+            <img src="https://abs.twimg.com/favicons/twitter.2.ico" alt="X">
+            <span class="card-title">X / Twitter</span>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * 親ウィンドウ（index.html）の関数を呼び出してプロキシを実行する
+         */
+        function launchProxy(url) {
+            // 親ウィンドウのアドレスバーに値をセット
+            const parentAddressBar = parent.document.getElementById('uv-address');
+            const parentForm = parent.document.getElementById('uv-form');
+            
+            if (parentAddressBar && parentForm) {
+                parentAddressBar.value = url;
+                
+                // Submitイベントを手動で発生させる
+                const event = new Event('submit', {
+                    'bubbles': true,
+                    'cancelable': true
+                });
+                parentForm.dispatchEvent(event);
+            } else {
+                console.error("親ウィンドウの要素が見つかりませんでした。");
+            }
+        }
+    </script>
+</body>
+</html>
