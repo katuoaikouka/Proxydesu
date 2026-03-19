@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Browser</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="uv/uv.bundle.js"></script>
+    <script src="uv/uv.config.js"></script>
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; font-family: 'Segoe UI', sans-serif; background: #1a1a1a; overflow: hidden; }
+        
+        /* ツールバー部分 */
+        .navbar {
+            background: #2b2b2b;
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .nav-controls { display: flex; gap: 10px; color: #ccc; }
+        .nav-controls i { cursor: pointer; transition: 0.2s; }
+        .nav-controls i:hover { color: #fff; }
+
+        .search-container {
+            flex-grow: 1;
+            display: flex;
+            background: #3b3b3b;
+            border-radius: 20px;
+            padding: 5px 15px;
+            align-items: center;
+        }
+
+        form { width: 100%; display: flex; }
+
+        input {
+            background: none;
+            border: none;
+            color: white;
+            width: 100%;
+            outline: none;
+            font-size: 14px;
+            padding: 5px;
+        }
+
+        /* 起動ボタン等 */
+        .btn-launch {
+            background: #4a4a4a;
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .btn-launch:hover { background: #666; }
+
+        /* ヒント表示 */
+        .desc {
+            color: #888;
+            text-align: center;
+            margin-top: 20vh;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="nav-controls">
+            <i class="fas fa-arrow-left" onclick="history.back()"></i>
+            <i class="fas fa-arrow-right" onclick="history.forward()"></i>
+            <i class="fas fa-redo" onclick="location.reload()"></i>
+        </div>
+        
+        <div class="search-container">
+            <i class="fas fa-search" style="color: #888; margin-right: 10px;"></i>
+            <form id="uv-form">
+                <input type="text" id="uv-address" placeholder="URLを入力または検索キーワードを入力...">
+            </form>
+        </div>
+
+        <button class="btn-launch" id="blank-btn">Open in About:Blank</button>
+    </div>
+
+    <div class="desc" id="start-screen">
+        <h1>Ultraviolet Browser</h1>
+        <p>上のアドレスバーから検索を開始してください</p>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
